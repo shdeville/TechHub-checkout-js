@@ -128,7 +128,7 @@ const ShippingAddress: FunctionComponent<ShippingAddressProps> = (props) => {
 
             {/* Additional text with hyperlink */}
             <div id="mylink">
-                <p>Additional text here. Visit <a href="https://example.com">Example Website</a></p>
+                <p>Don't know your Department code? Find it here - <a href="https://store-jje9unvzjs.mybigcommerce.com/content/Department%20Lookup%20Tool/Department%20Lookup%20Tool%200.2/index.html" target="_blank">TAMU Department Code Lookup.</a></p>
             </div>
         </>
     );
