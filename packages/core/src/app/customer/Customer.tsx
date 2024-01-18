@@ -25,7 +25,6 @@ import { withCheckout } from '../checkout';
 import CheckoutStepStatus from '../checkout/CheckoutStepStatus';
 import { isErrorWithType } from '../common/error';
 import { isFloatingLabelEnabled } from '../common/utility';
-import getProviderWithCustomCheckout from '../payment/getProviderWithCustomCheckout';
 import { PaymentMethodId } from '../payment/paymentMethod';
 
 import CheckoutButtonList from './CheckoutButtonList';
@@ -597,10 +596,6 @@ export function mapToWithCheckoutCustomerProps({
         },
     } = config as StoreConfig & { checkoutSettings: { isAccountCreationEnabled: boolean } };
 
-    const providerWithCustomCheckout = getProviderWithCustomCheckout(
-        config.checkoutSettings.providerWithCustomCheckout,
-    );
-
     return {
         customerAccountFields: getCustomerAccountFields(),
         canSubscribe: config.shopperConfig.showNewsletterSignup,
@@ -630,14 +625,14 @@ export function mapToWithCheckoutCustomerProps({
         signInEmail,
         signInEmailError: getSignInEmailError(),
         privacyPolicyUrl,
-        providerWithCustomCheckout,
+        providerWithCustomCheckout: config.checkoutSettings.providerWithCustomCheckout || undefined,
         requiresMarketingConsent,
         signIn: checkoutService.signInCustomer,
         signInError: getSignInError(),
         isFloatingLabelEnabled: isFloatingLabelEnabled(config.checkoutSettings),
         isExpressPrivacyPolicy,
         isPaymentDataRequired: isPaymentDataRequired(),
-        shouldRenderStripeForm: providerWithCustomCheckout === PaymentMethodId.StripeUPE && shouldUseStripeLinkByMinimumAmount(cart),
+        shouldRenderStripeForm: !!(config.checkoutSettings.providerWithCustomCheckout === PaymentMethodId.StripeUPE && shouldUseStripeLinkByMinimumAmount(cart)),
     };
 }
 

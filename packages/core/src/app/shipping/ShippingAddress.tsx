@@ -109,21 +109,28 @@ const ShippingAddress: FunctionComponent<ShippingAddressProps> = (props) => {
     }
 
     return (
-        <ShippingAddressForm
-            address={shippingAddress}
-            addresses={addresses}
-            consignments={consignments}
-            countries={countries}
-            countriesWithAutocomplete={countriesWithAutocomplete}
-            formFields={formFields}
-            googleMapsApiKey={googleMapsApiKey}
-            isFloatingLabelEnabled={isFloatingLabelEnabled}
-            isLoading={isLoading}
-            onAddressSelect={onAddressSelect}
-            onFieldChange={handleFieldChange}
-            onUseNewAddress={onUseNewAddress}
-            shouldShowSaveAddress={shouldShowSaveAddress}
-        />
+        <>
+            <ShippingAddressForm
+                address={shippingAddress}
+                addresses={addresses}
+                consignments={consignments}
+                countries={countries}
+                countriesWithAutocomplete={countriesWithAutocomplete}
+                formFields={formFields}
+                googleMapsApiKey={googleMapsApiKey}
+                isFloatingLabelEnabled={isFloatingLabelEnabled}
+                isLoading={isLoading}
+                onAddressSelect={onAddressSelect}
+                onFieldChange={handleFieldChange}
+                onUseNewAddress={onUseNewAddress}
+                shouldShowSaveAddress={shouldShowSaveAddress}
+            />
+
+            {/* Additional text with hyperlink */}
+            <div id="mylink">
+                <p>Additional text here. Visit <a href="https://example.com">Example Website</a></p>
+            </div>
+        </>
     );
 };
 

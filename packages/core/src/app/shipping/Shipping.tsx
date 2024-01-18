@@ -25,7 +25,6 @@ import { isEqualAddress, mapAddressFromFormValues } from '../address';
 import { withCheckout } from '../checkout';
 import CheckoutStepStatus from '../checkout/CheckoutStepStatus';
 import { EMPTY_ARRAY, isFloatingLabelEnabled } from '../common/utility';
-import getProviderWithCustomCheckout from '../payment/getProviderWithCustomCheckout';
 import { PaymentMethodId } from '../payment/paymentMethod';
 
 import { UnassignItemError } from './errors';
@@ -396,10 +395,6 @@ export function mapToShippingProps({
     const shippingAddress =
         !shouldShowMultiShipping && consignments.length > 1 ? undefined : getShippingAddress();
 
-    const providerWithCustomCheckout = getProviderWithCustomCheckout(
-        config.checkoutSettings.providerWithCustomCheckout,
-    );
-
     return {
         assignItem: checkoutService.assignItemsToAddress,
         billingAddress: getBillingAddress(),
@@ -423,7 +418,7 @@ export function mapToShippingProps({
         loadBillingAddressFields: checkoutService.loadBillingAddressFields,
         loadShippingOptions: checkoutService.loadShippingOptions,
         methodId,
-        providerWithCustomCheckout,
+        providerWithCustomCheckout: config.checkoutSettings.providerWithCustomCheckout || undefined,
         shippingAddress,
         shouldShowMultiShipping,
         shouldShowAddAddressInCheckout:
@@ -435,7 +430,7 @@ export function mapToShippingProps({
         updateCheckout: checkoutService.updateCheckout,
         updateShippingAddress: checkoutService.updateShippingAddress,
         isFloatingLabelEnabled: isFloatingLabelEnabled(config.checkoutSettings),
-        shouldRenderStripeForm: providerWithCustomCheckout === PaymentMethodId.StripeUPE && shouldUseStripeLinkByMinimumAmount(cart),
+        shouldRenderStripeForm: !!(config.checkoutSettings.providerWithCustomCheckout === PaymentMethodId.StripeUPE && shouldUseStripeLinkByMinimumAmount(cart)),
     };
 }
 
